@@ -309,6 +309,17 @@ class AbstractIntegrationSpec extends Specification {
 
     protected ExecutionResult succeeds(String... tasks) {
         result = executer.withTasks(*tasks).run()
+        failure = null
+    }
+
+    void setResult(ExecutionResult result) {
+        this.result = result
+        failure = null
+    }
+
+    void setFailure(ExecutionFailure failure) {
+        this.failure = failure
+        result = failure
     }
 
     protected ExecutionFailure runAndFail(String... tasks) {

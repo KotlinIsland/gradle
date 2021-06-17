@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":logging"))
 
     implementation(libs.commonsHttpclient)
+    implementation(libs.commonsHttpclientWin)
     implementation(libs.slf4jApi)
     implementation(libs.jclToSlf4j)
     implementation(libs.jcifs)

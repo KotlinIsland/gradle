@@ -26,6 +26,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.WinHttpClients;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.gradle.api.internal.DocumentationRegistry;
@@ -220,7 +221,13 @@ public class HttpClientHelper implements Closeable {
 
     private synchronized CloseableHttpClient getClient() {
         if (client == null) {
-            HttpClientBuilder builder = HttpClientBuilder.create();
+            HttpClientBuilder builder;
+            if (WinHttpClients.isWinAuthAvailable()) {
+                System.setProperty("java.net.useSystemProxies", "true");
+                builder = WinHttpClients.custom().useSystemProperties();
+            } else {
+                builder = HttpClientBuilder.create();
+            }
             new HttpClientConfigurer(settings).configure(builder);
             this.client = builder.build();
         }

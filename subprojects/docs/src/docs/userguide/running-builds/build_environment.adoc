@@ -281,3 +281,7 @@ If your proxy requires NTLM authentication, you may need to provide the authenti
 
 * Set the `http.proxyUser` system property to a value like `__domain__/__username__`.
 * Provide the authentication domain via the `http.auth.ntlm.domain` system property.
+
+=== Windows Proxy
+
+Gradle supports automatic detection of Windows proxy settings.
